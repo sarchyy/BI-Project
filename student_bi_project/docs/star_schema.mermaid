@@ -1,0 +1,58 @@
+erDiagram
+    FACT_STUDENT_PERFORMANCE {
+        int performance_id PK
+        int student_id FK
+        int department_id FK
+        int semester_id FK
+        float attendance_rate
+        float midterm_score
+        float final_score
+        float projects_score
+        float quizzes_avg
+        float assignments_avg
+        float total_score
+        float final_grade
+        date last_updated
+    }
+    
+    DIM_STUDENT {
+        int student_id PK
+        string student_name
+        string enrollment_year
+        string student_status
+        string gender
+        date birth_date
+    }
+    
+    DIM_DEPARTMENT {
+        int department_id PK
+        string department_name
+        string department_code
+        string faculty
+        int num_required_courses
+    }
+    
+    DIM_SEMESTER {
+        int semester_id PK
+        string semester_name
+        string academic_year
+        date start_date
+        date end_date
+        int week_number
+    }
+    
+    DIM_DATE {
+        int date_id PK
+        date full_date
+        int day
+        int month
+        int year
+        string day_name
+        int week_number
+        string quarter
+    }
+    
+    FACT_STUDENT_PERFORMANCE ||--o{ DIM_STUDENT : "belongs to"
+    FACT_STUDENT_PERFORMANCE ||--o{ DIM_DEPARTMENT : "enrolled in"
+    FACT_STUDENT_PERFORMANCE ||--o{ DIM_SEMESTER : "during"
+    FACT_STUDENT_PERFORMANCE ||--o{ DIM_DATE : "as of"
